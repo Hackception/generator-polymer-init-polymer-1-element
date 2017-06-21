@@ -12,9 +12,9 @@
 
 const chalk = require('chalk');
 const path = require('path');
-const yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 
-module.exports = yeoman.Base.extend({
+module.exports = Generator.extend({
   initializing() {
     this.appname = this.appname.replace(/\s+/g, '-');
   },
