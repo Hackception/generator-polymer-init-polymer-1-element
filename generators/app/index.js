@@ -24,7 +24,7 @@ module.exports = Generator.extend({
         name: 'name',
         type: 'input',
         message: 'Element name',
-        default: `${this.appname}${this.appname.includes('-') ? '' : '-element'}`),
+        default: `${this.appname}${this.appname.includes('-') ? '' : '-element'}`,
         validate(name) {
           const nameContainsHyphen = name.includes('-');
           if (!nameContainsHyphen) {
@@ -32,6 +32,7 @@ module.exports = Generator.extend({
               '\nUh oh, custom elements must include a hyphen in ' +
               'their name. Please try again.');
           }
+          return nameContainsHyphen;
         },
       },
       {
@@ -43,10 +44,10 @@ module.exports = Generator.extend({
 
     return this.prompt(prompts)
       .then((props) => {
-        this.props = props;
-        this.props.elementClassName = this.props.replace(
+        props.elementClassName = props.name.replace(
           /(^|-)(\w)/g,
           (_match, _p0, p1) => p1.toUpperCase());
+        this.props = props;
       });
   },
   writing() {
